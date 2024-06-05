@@ -1,3 +1,5 @@
+package calculator;
+
 enum RomanSymbols {
 
     I(1),
