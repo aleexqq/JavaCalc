@@ -30,7 +30,7 @@ public class Main {
         boolean isArabic = isArabic(firstStr) && isArabic(secondStr);
 
         if (!isRoman && !isArabic) {
-            throw new IllegalArgumentException("Неверный ввод: Калькулятор принимает числа от 1 до 10, " +
+            throw new IllegalArgumentException("Некорректный ввод: Калькулятор принимает числа от 1 до 10, " +
                     "находящихся одновременно либо в римской, либо в арабской системе счисления");
         }
 
