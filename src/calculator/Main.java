@@ -22,7 +22,7 @@ public class Main {
 
         if (expression.length != 3) {
             throw new IllegalArgumentException("Некорректный ввод: Формат математической операции должен" +
-                    " удовлетворять условиям - два операнда и один оператор (+, -, /, *)");
+                    " удовлетворять условиям - два операнда и один обособленный пробелами оператор (+, -, /, *)");
         }
 
         String firstStr = expression[0], operator = expression[1], secondStr = expression[2];
@@ -38,17 +38,13 @@ public class Main {
         int first = isRoman ? RomanSymbols.valueOf(firstStr).getTranslation() : Integer.parseInt(firstStr);
         int second = isRoman ? RomanSymbols.valueOf(secondStr).getTranslation() : Integer.parseInt(secondStr);
 
-        if (first < MIN_VALUE || second < MIN_VALUE || first > MAX_VALUE || second > MAX_VALUE) {
-            throw new IllegalArgumentException("Неверный ввод: Калькулятор принимает числа от 1 до 10.");
-        }
-
         int result = switch (operator) {
             case "+" -> first + second;
             case "-" -> first - second;
             case "*" -> first * second;
             case "/" -> first / second;
-            default -> throw new IllegalArgumentException("Некорректный ввод: Формат математической операции должен" +
-                    "удовлетворять условиям - два операнда и один оператор (+, -, /, *)");
+            default -> throw new IllegalArgumentException("Некорректный ввод: Калькулятор принимает на вход" +
+                    " только следующие операторы: [+, -, /, *]");
         };
 
         if (isRoman) {
@@ -64,11 +60,11 @@ public class Main {
 
     static boolean isArabic(String numStr) {
         try {
-            Integer.parseInt(numStr);
+            int num = Integer.parseInt(numStr);
+            return num <= MAX_VALUE && num >= MIN_VALUE;
         } catch (Exception e) {
             return false;
         }
-        return true;
     }
 
     static boolean isRoman(String numStr) {
