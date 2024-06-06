@@ -6,31 +6,37 @@ public class Main {
     private static final int MIN_VALUE = 1;
     private static final int MAX_VALUE = 10;
 
+    private static final int OPERANDS_COUNT = 2;
+
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
+
         try {
             System.out.println(calc(input));
         } catch (Exception e) {
-            System.out.println("Ошибка: " + e.getMessage());
+            System.out.println("Ошибка => " + e.getMessage());
         }
     }
 
     public static String calc(String input) throws IllegalArgumentException {
-        String[] expression = input.trim().split(" ");
+        String[] operands = input.trim().split("\\s*[+\\-*/]\\s*");
 
-        if (expression.length != 3) {
-            throw new IllegalArgumentException("Некорректный ввод: Формат математической операции должен" +
-                    " удовлетворять условиям - два операнда и один обособленный пробелами оператор (+, -, /, *)");
+        if (operands.length != OPERANDS_COUNT) {
+            throw new IllegalArgumentException("Некорректное выражение: Калькулятор принимает на вход" +
+                    " только два операнда и один из операторов следующей последовательности: [+, -, /, *]");
         }
 
-        String firstStr = expression[0], operator = expression[1], secondStr = expression[2];
+        String firstStr = operands[0];
+        String secondStr = operands[1];
+        String operator = input.replaceAll("[^+\\-*/]", "");
 
         boolean isRoman = isRoman(firstStr) && isRoman(secondStr);
         boolean isArabic = isArabic(firstStr) && isArabic(secondStr);
 
         if (!isRoman && !isArabic) {
-            throw new IllegalArgumentException("Некорректный ввод: Калькулятор принимает числа от 1 до 10, " +
+            throw new IllegalArgumentException("Некорректное число: Калькулятор принимает два числа от 1 до 10, " +
                     "находящихся одновременно либо в римской, либо в арабской системе счисления");
         }
 
@@ -42,8 +48,8 @@ public class Main {
             case "-" -> first - second;
             case "*" -> first * second;
             case "/" -> first / second;
-            default -> throw new IllegalArgumentException("Некорректный ввод: Калькулятор принимает на вход" +
-                    " только следующие операторы: [+, -, /, *]");
+            default -> throw new IllegalArgumentException("Некорректный оператор: Калькулятор принимает на вход" +
+                    " только один из операторов следующей последовательности: [+, -, /, *]");
         };
 
         if (isRoman) {
