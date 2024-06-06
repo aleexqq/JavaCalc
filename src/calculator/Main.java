@@ -10,10 +10,9 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
         try {
-            String result = calc(input);
-            System.out.println("Input: " + input + " => Output: " + result);
-        } catch (IllegalArgumentException e) {
-            System.out.println("Input: " + input + " => Error: " + e.getMessage());
+            System.out.println(calc(input));
+        } catch (Exception e) {
+            System.out.println("Ошибка: " + e.getMessage());
         }
     }
 
